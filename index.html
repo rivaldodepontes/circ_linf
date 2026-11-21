@@ -67,7 +67,7 @@ input[type=range]{width:100%;accent-color:var(--ly)}
 .foto{margin:0 0 12px}.foto img{width:100%;border-radius:12px;display:block}.foto figcaption{font-size:.72rem;color:var(--mut);padding-top:4px}
 footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid var(--line);background:var(--panel)}
 .dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}.dots i{width:8px;height:8px;border-radius:9px;background:var(--line);transition:.25s}.dots i.on{width:22px;background:var(--ly)}.dots i.d{background:var(--ly);opacity:.5}
-.small{font-size:.76rem;color:var(--mut)}
+.small{font-size:.76rem;color:var(--mut)}.cnt{display:none;font-weight:700}
 /* corpo */
 .sil{fill:var(--body);stroke:var(--bl);stroke-width:3;stroke-linejoin:round}
 .lung{fill:var(--p2);stroke:var(--line);opacity:.8}.heart{fill:rgba(214,95,82,.35);stroke:rgba(214,95,82,.6)}
@@ -89,7 +89,7 @@ footer{display:flex;align-items:center;justify-content:space-between;gap:10px;pa
 @keyframes gl{50%{opacity:.4}}
 .inf .nd[data-k=cervical] .dot{r:7;fill:var(--bad);stroke:#fff;animation:sw 1.2s infinite}
 @keyframes sw{50%{r:9}}.inf .focus{display:block}.focus{display:none}
-@media(max-width:900px){body{overflow:auto}main{grid-template-columns:1fr;display:flex;flex-direction:column}.stage{max-height:58vh}.scroll{overflow:visible}.panel{overflow:visible}.brand,.tool.fs{display:none}header{flex-wrap:wrap}.grid{grid-template-columns:1fr}.track{font-size:.7rem}}
+@media(max-width:900px){html,body{height:auto;min-height:100%}body{display:block;overflow:visible}main{display:flex;flex-direction:column;padding:10px 10px 88px}.stage{height:44vh;min-height:300px}.scroll{overflow:visible;padding:18px 16px}.panel{overflow:visible}.brand,.tool.fs{display:none}header{flex-wrap:wrap;padding:6px 10px}.secs{order:3;flex:1 1 100%}.tool{margin-left:auto}.tool+.tool{margin-left:0}.grid{grid-template-columns:1fr}.track{font-size:.7rem}footer{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:8px 12px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -6px 18px rgba(0,0,0,.3)}.dots{display:none}.cnt{display:block}.btn{padding:10px 16px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 html.pres body{font-size:19px}
 </style>
@@ -121,7 +121,7 @@ html.pres body{font-size:19px}
 
 <footer>
   <button class="btn" id="prev">← Anterior</button>
-  <div class="dots" id="dots" aria-hidden="true"></div>
+  <div class="dots" id="dots" aria-hidden="true"></div><span class="small cnt" id="cnt"></span>
   <button class="btn pri" id="next">Próximo →</button>
 </footer>
 
@@ -210,7 +210,7 @@ function go(n){
   $('#pill').textContent=S.pill;
   $$('.sec').forEach(function(b){b.classList.toggle('on',+b.dataset.s===S.s)});
   $$('#dots i').forEach(function(d,k){d.className=k===i?'on':visited[k]?'d':''});
-  $('#prev').disabled=i===0;$('#next').disabled=i===STEPS.length-1;$('#next').textContent=i===STEPS.length-2?'Revisão →':'Próximo →';
+  $('#cnt').textContent=(i+1)+' / '+STEPS.length;$('#prev').disabled=i===0;$('#next').disabled=i===STEPS.length-1;$('#next').textContent=i===STEPS.length-2?'Revisão →':'Próximo →';
   paint();bind();
 }
 function selNode(k){cls.sel=k;paint();var c=$('#ncard');if(c){c.innerHTML='<h3 style="margin:0 0 8px">Linfonodos '+N[k].n+'</h3><dl class="rows">'+N[k].r.map(function(r){return '<div><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>'}).join('')+'</dl>';$$('#nchips .chip').forEach(function(b){b.classList.toggle('on',b.dataset.k===k)})}}
